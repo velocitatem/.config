@@ -1,0 +1,11 @@
+[Unit]
+Description=ProtonMail Bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/protonmail-bridge --noninteractive
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Ibuse Daemon
+
+[Service]
+Type=forking
+ExecStart=ibus-daemon & disown
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
