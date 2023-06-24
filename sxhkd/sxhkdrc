@@ -131,7 +131,7 @@ alt + e
   emacsclient -c -a emacs
 
 alt + c
-  bash ~/rofi-dc.sh
+  bash /home/velocitatem/.config/sxhkd/rofi-dc.sh
 
 
 # AUDIO
