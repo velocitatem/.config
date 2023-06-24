@@ -2,7 +2,6 @@
 BackgroundDarkness=0.920000
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=FALSE
-BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=FALSE
@@ -33,6 +32,7 @@ FontName=Source Code Pro 10
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
 ColorForeground=#000000
-ColorBackground=#ffffff
+ColorBackground=#ffffffffffff
 ColorPalette=rgb(0,0,0);rgb(170,0,0);rgb(0,170,0);rgb(170,85,0);rgb(0,0,170);rgb(170,0,170);rgb(0,170,170);rgb(170,170,170);rgb(85,85,85);rgb(255,85,85);rgb(18,138,18);rgb(202,202,27);rgb(85,85,255);rgb(255,85,255);rgb(42,166,212);rgb(132,131,131)
+FontUseSystem=TRUE
 
