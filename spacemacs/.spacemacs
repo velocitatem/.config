@@ -898,7 +898,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(gptel-api-key "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")
  '(gptel-model "gpt-4")
  '(gptel-use-curl nil)
  '(org-agenda-files
