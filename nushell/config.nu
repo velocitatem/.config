@@ -185,7 +185,7 @@ let light_theme = {
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
   # true or false to enable or disable the welcome banner at startup
-  show_banner: true
+  show_banner: false
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
     clickable_links: true # enable or disable clickable links. Your terminal has to support links.
@@ -299,7 +299,7 @@ let-env config = {
     vi_insert: block # block, underscore, line , blink_block, blink_underscore, blink_line (block is the default)
     vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line (underscore is the default)
   }
-  color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
+  color_config: $light_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
   float_precision: 2 # the precision for displaying floats in tables
