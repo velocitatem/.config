@@ -5,7 +5,7 @@ bash /home/velocitatem/.config/bspwm/displays.sh
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 
-bash ~/.config/polybar/launch.sh --hack &
+bash ~/.config/polybar/launch.sh --material &
 
 wal -l -t -i /mnt/s/Pictures/Wallpapers/LightAcademiaMin/ --saturate 0.8
 

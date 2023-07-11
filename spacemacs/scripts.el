@@ -1,5 +1,3 @@
-(require 'ox-publish)
-(require 'ox-html)
 (defun my-replace-newlines-with-spaces (beg end)
   "Replace all newlines with spaces in the region from BEG to END."
   (interactive "r")
