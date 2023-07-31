@@ -88,13 +88,19 @@ let-env NU_PLUGIN_DIRS = [
 
 let-env KEYS_PATH = "/home/velocitatem/.config/nushell/keys.json"
 
-let paths = ['/home/velocitatem/.local/bin' '/home/velocitatem/.cargo/bin']
-$paths | each { |pth|
-  let-env PATH = ($env.PATH | prepend $pth)
-}
+let-env PATH = ($env.PATH | prepend '/home/velocitatem/.local/bin')
+let-env PATH = ($env.PATH | prepend '/home/velocitatem/.cargo/bin')
+# ~/.bun/bin
+let-env PATH = ($env.PATH | prepend '/home/velocitatem/.bun/bin')
 
 load-env (open $env.KEYS_PATH)
 alias cat = bat
 alias appmixerenginestart = CUSTOM_COMPONENT_PATH=/home/velocitatem/Appmixer/appmixer-components/src DB_CONNECTION_URI=mongodb://localhost:28017/grid?replSet=rs0 BROKER_SERVER_API=http://localhost:16672 BROKER_URL=amqp://localhost:5772 ELASTIC_URL=http://localhost:9201 npx nodemon gridd/gridd.js -t -q
 alias appmixer = /home/velocitatem/Appmixer/appmixer-cli/appmixer
 alias killemacs = pkill -SIGUSR2 emacs
+
+
+mkdir ~/.cache/starship
+starship init nu | save -f ~/.cache/starship/init.nu
+
+source ~/.cache/starship/init.nu

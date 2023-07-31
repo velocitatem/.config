@@ -7,7 +7,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 bash ~/.config/polybar/launch.sh --material &
 
-wal -l -t -i /mnt/s/Pictures/Wallpapers/LightAcademiaMin/ --saturate 0.8
+wal -l -t -i "$(find /mnt/s/Pictures/Wallpapers/LightAcademiaMin/ '/home/velocitatem/Pictures/Wallpapers/MadeiraAI/' \( -iname \*.jpg -o -iname \*.png -o -iname \*.jpeg -o -iname \*.gif \) -type f | shuf -n 1)" --saturate 1
 
 # set the cursor
 xsetroot -cursor_name left_ptr
