@@ -1,7 +1,7 @@
 [Unit]
 Description=ProtonMail Bridge
-After=network-online.target
-Wants=network-online.target
+After=network.target
+Wants=network.target
 
 [Service]
 ExecStart=/usr/bin/protonmail-bridge --noninteractive
