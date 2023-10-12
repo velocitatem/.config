@@ -62,7 +62,12 @@
 
 (defun compile-and-run ()
   (interactive)
-  (compile (concat "g++ -std=c++20 " buffer-file-name " -o " (file-name-sans-extension buffer-file-name) " && " (file-name-sans-extension buffer-file-name)))
+  (compile (concat "gcc -g " buffer-file-name " -o " (file-name-sans-extension buffer-file-name) " && " (file-name-sans-extension buffer-file-name)))
   ;; now we need to run the program, but also need to possible get the users input
   ;; so we need to run it in a terminal
   )
+
+;; add hook to c-mode under C-c C-c
+(add-hook 'c-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-c") 'compile-and-run)))
