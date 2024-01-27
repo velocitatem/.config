@@ -98,11 +98,12 @@ load-env (open $env.KEYS_PATH)
 alias docat = /usr/bin/cat
 alias dofind = /usr/bin/find
 alias cat = bat --theme=Coldark-Cold
-alias appmixerenginestart = CUSTOM_COMPONENT_PATH=/home/velocitatem/Appmixer/appmixer-components/src DB_CONNECTION_URI=mongodb://localhost:28017/grid?replSet=rs0 BROKER_SERVER_API=http://localhost:16672 BROKER_URL=amqp://localhost:5772 ELASTIC_URL=http://localhost:9201 npx nodemon gridd/gridd.js -t -q
-alias appmixer = /home/velocitatem/Appmixer/appmixer-cli/appmixer
 alias killemacs = pkill -SIGUSR2 emacs
 alias labd1 = xrandr --output DP1-1 --above eDP1 --auto
 alias labd2 = xrandr --output DP1-3 --right-of DP1-1 --auto
+alias ollamaui = docker run -d -p 3000:8080  ghcr.io/ollama-webui/ollama-webui:main
+alias ollamaui-stop = docker stop (docker ps -q --filter ancestor=ghcr.io/ollama-webui/ollama-webui:main )
+alias bayes = bash /mnt/s/scripts/bayes.sh
 
 # ownerproof-3209348-1699973265-5c96ddbca989
 
