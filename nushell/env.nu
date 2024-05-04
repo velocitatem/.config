@@ -101,9 +101,11 @@ alias cat = bat --theme=Coldark-Cold
 alias killemacs = pkill -SIGUSR2 emacs
 alias labd1 = xrandr --output DP1-1 --above eDP1 --auto
 alias labd2 = xrandr --output DP1-3 --right-of DP1-1 --auto
-alias ollamaui = docker run -d -p 3000:8080  ghcr.io/ollama-webui/ollama-webui:main
-alias ollamaui-stop = docker stop (docker ps -q --filter ancestor=ghcr.io/ollama-webui/ollama-webui:main )
+alias ollamaui = docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+alias ollamaui-stop = docker stop (docker ps -q --filter ancestor=ghcr.io/open-webui/open-webui:main )
 alias bayes = bash /mnt/s/scripts/bayes.sh
+alias firebot = docker run -d --name=firefox -p 5800:5800 jlesage/firefox
+alias lab = bash /mnt/s/scripts/lab.sh
 
 # ownerproof-3209348-1699973265-5c96ddbca989
 
@@ -113,3 +115,4 @@ starship init nu | save -f ~/.cache/starship/init.nu
 
 source ~/.config/nushell/secrets.nu
 source ~/.cache/starship/init.nu
+zoxide init nushell | save -f ~/.zoxide.nu

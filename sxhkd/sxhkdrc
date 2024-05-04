@@ -50,6 +50,10 @@ super + f
   bspc node -t floating
 
 
+super + l
+  xsecurelock
+
+
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
@@ -171,3 +175,6 @@ Print
 # Take a fullscreen screenshot with Spectacle when shift is held down
 Shift + Print
     spectacle -f
+
+alt + l
+    xsecurelock

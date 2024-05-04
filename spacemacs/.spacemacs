@@ -31,87 +31,11 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '()
 
 
-
    ;; List of configuration layers to load.
 ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(sql
-     nginx
-     ;; Programming languages
-        (c-c++ :comment "C/C++ programming")
-        csv
-        ess
-        go
-        javascript
-        (python :variables
-                python-backend 'lsp
-                python-lsp-server 'pylsp
-                :comment "Python programming with lsp backend")
-        rust
-        typescript
-        yaml
-
-        ;; Tools
-        auto-completion
-        emacs-lisp
-        git
-        helm
-        lsp
-        multiple-cursors
-        (shell :variables
-               shell-default-height 30
-               shell-default-term-shell "/bin/bash"
-               shell-default-position 'bottom
-               :comment "Shell configuration")
-        spell-checking
-        syntax-checking
-        treemacs
-        version-control
-
-        ;; Markup languages
-        html
-        ;; markdown
-
-        ;; Themes and visuals
-        themes-megapack
-
-        ;; Other configurations
-        chinese
-        finance
-        pdf
-        systemd
-
-        ;; Org mode configuration
-        (org :variables
-             org-enable-sticky-header nil
-             org-startup-truncated t
-             org-enable-notifications t
-             org-start-notification-daemon-on-startup t
-             org-enable-reveal-js-support t
-             org-enable-roam-support t
-             org-enable-roam-ui t
-             org-roam-directory "~/org/"
-             org-directory "~/org/"
-             org-agenda-files '("~/org/daily/" "~/org/journal/")
-             org-startup-indented t
-             org-hide-emphasis-markers t
-             org-pretty-entities t
-             org-image-actual-width '(300)
-             org-superstar-headline-bullets-list '(?◎ ?○ ?◌ ?◇)
-             org-catch-invisible-edits 'show-and-error
-             org-agenda-exporter-settings '((ps-number-of-columns 2)
-                                            (ps-landscape-mode t)
-                                            (htmlize-output-type 'css))
-             ;; org icalendar export is not working
-             org-icalendar-use-deadline '(event-if-todo event-if-not-todo todo-due)
-             org-icalendar-use-scheduled '(event-if-todo event-if-not-todo todo-start)
-             org-icalendar-include-todo t
-             org-icalendar-combined-agenda-file "~/org/daily/combined.ics"
-             :comment "Org mode settings")
-        )
-
-   dotspacemacs-configuration-layers
-   '(yaml
+   '(graphviz
+     yaml
      go
      typescript
      csv
@@ -120,14 +44,20 @@ This function should only modify configuration layer settings."
      systemd
      html
      javascript
-     (python :variables python-backend 'lsp python-lsp-server 'pylsp)
-     finance
+     (lsp :variables
+          lsp-use-upstream-bindings t
+          )
+      (python :variables
+              python-backend 'lsp
+              python-lsp-server 'pylsp
+              :comment "Python programming with lsp backend")
      auto-completion
      myleetcode
      emacs-lisp
      git
-     helm
-     lsp
+     (helm :variables
+           elm-descbinds-mode -1
+           )
      ;; markdown
      multiple-cursors
      (org :variables
@@ -189,21 +119,16 @@ This function should only modify configuration layer settings."
                                       arduino-mode
                                       interaction-log
                                       sqlite3
-                                      org-drill
-                                      org-ai
-                                      activity-watch-mode
                                       ein
                                       rjsx-mode
-                                      vue-mode
-                                      slack
                                       jupyter
-                                      obsidian
                                       eldoc
                                       eslint-rc
                                       (copilot :location (recipe
                                                           :fetcher github
-                                                          :repo "zerolfx/copilot.el"
-                                                          :files ("*.el" "dist")))
+                                                          :repo "copilot-emacs/copilot.el"
+                                                          :files ("*.el")))
+
                                       olivetti)
 
    ;; A list of packages that cannot be updated.
@@ -693,69 +618,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Define variables for use in config
   ;; ===============
   (setq
-    ;; Custom LaTeX processing rules for org-mode
-    org-preview-latex-process-alist
-    '((dvipng :programs
-              ("latex" "dvipng")
-              :description "dvi > png"
-              :message "you need to install the programs: latex and dvipng."
-              :image-input-type "dvi"
-              :image-output-type "png"
-              :image-size-adjust
-              (1.0 . 1.0)
-              :latex-compiler
-              ("latex -interaction nonstopmode -output-directory %o %f")
-              :image-converter
-              ("dvipng -bg Transparent -D %D -T tight -o %b.png %b.dvi"))
-      (dvisvgm :programs
-              ("latex" "dvisvgm")
-              :description "dvi > svg"
-              :message "you need to install the programs: latex and dvisvgm."
-              :use-xcolor t
-              :image-input-type "dvi"
-              :image-output-type "svg"
-              :image-size-adjust
-              (1.7 . 1.5)
-              :latex-compiler
-              ("latex -interaction nonstopmode -output-directory %o %f")
-              :image-converter
-              ("dvisvgm %f -n -b min -c %S -o %O"))
-      (imagemagick :programs
-                  ("latex" "convert")
-                  :description "pdf > png"
-                  :message "you need to install the programs: latex and imagemagick."
-                  :use-xcolor t
-                  :image-input-type "pdf"
-                  :image-output-type "png"
-                  :image-size-adjust
-                  (1.0 . 1.0)
-                  :latex-compiler
-                  ("pdflatex -interaction nonstopmode -output-directory %o %f")
-                  :image-converter
-                  ("convert -density %D -trim -antialias %f -quality 100 %O")))
-
     ;; Enabling or disabling links in LSP
     lsp-enable-links nil
-
-    ;; Capture templates for org-roam
-    org-roam-capture-templates
-    '(("d" "default" plain "%?" :target
-      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-      ("n" "university notes" plain "%?" :target
-      (file+head "/home/velocitatem/Documents/Collage/university-study-notes/content/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t))
-
-    ;; Org Roam DB node include function
-    org-roam-db-node-include-function
-    (lambda () (not (member "DO_NOT_ORG_ROAM" (org-get-tags))))
-
-    ;; Capture templates for org-mode
-    org-capture-templates
-    '(("m" "Vision motivator capture template" entry  (file "~/.motivateme/visions.org") "* "))
-
-    ;; Root directory for org-re-reveal
-    org-re-reveal-root "/home/velocitatem/Downloads/software/reveal.js"
 
     ;; Eslint rc use package json
     eslint-rc-use-package-json ".eslintrc.json"
@@ -774,9 +638,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
     ;; Include function for org-roam DB node
     org-roam-db-node-include-function org-list-allow-alphabetical t
-
-    ;; Directory for Obsidian inbox
-    obsidian-inbox-directory "Inbox"
 
     leetcode-save-solutions t
 
@@ -804,22 +665,22 @@ before packages are loaded."
   ;; ===============
   ;; Require packages
   ;; ===============
-  (require 'org-ai)
-  (require 'obsidian)
   (require 'ox-publish)
+  (require 'lsp-mode)
   (require 'ox-html)
+
 
 
 
   ;; ===============
   ;; Load packages
   ;; ===============
-  (load "/home/velocitatem/Downloads/software/aide.el/aide.el")
-  (load "/home/velocitatem/Downloads/software/ox-ipynb/ox-ipynb.el")
-  (load "/home/velocitatem/Downloads/software/org-modern-indent/org-modern-indent.el")
-  (load "/mnt/s/Downloads/software/gptel/gptel.el")
+  ;; (load "/home/velocitatem/Downloads/software/aide.el/aide.el")
+  ;; (load "/home/velocitatem/Downloads/software/ox-ipynb/ox-ipynb.el")
+  ;; (load "/home/velocitatem/Downloads/software/org-modern-indent/org-modern-indent.el")
+  ;; (load "/mnt/s/Downloads/software/gptel/gptel.el")
   (load "/home/velocitatem/.config/spacemacs/scripts.el") ;; Load scripts
-  (load "/home/velocitatem/.config/spacemacs/grapmode.el")
+  ;; (load "/home/velocitatem/.config/spacemacs/grapmode.el")
 
 
 
@@ -831,17 +692,6 @@ before packages are loaded."
   (add-hook 'web-mode-hook 'eslint-rc-mode)
   (add-hook 'prog-mode-hook 'copilot-mode)
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90)
-  (add-hook
-   'obsidian-mode-hook
-   (lambda ()
-     ;; Replace standard command with Obsidian.el's in obsidian vault:
-     (local-set-key (kbd "C-c C-o") 'obsidian-follow-link-at-point)
-
-     ;; Use either `obsidian-insert-wikilink' or `obsidian-insert-link':
-     (local-set-key (kbd "C-c C-l") 'obsidian-insert-wikilink)
-
-     ;; Following backlinks
-     (local-set-key (kbd "C-c C-b") 'obsidian-backlink-jump)))
 
 
   ;; ===============
@@ -854,7 +704,16 @@ before packages are loaded."
     "ag" 'gptel
     "aG" 'gptel-send
     )
-  (define-key evil-insert-state-map (kbd "C-TAB") 'copilot-accept-completion-by-word)
+
+  (with-eval-after-load 'copilot
+    (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+    (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+    (define-key copilot-completion-map (kbd "C-TAB") 'copilot-accept-completion-by-word)
+    (define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
+    )
+
+  (add-hook 'prog-mode-hook 'copilot-mode)
+  (add-to-list 'copilot-major-mode-alist '("python" . "dockerfile"))
 
 
   ;; ===============
@@ -873,7 +732,6 @@ before packages are loaded."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
-     (ipython . t)
      (shell . t)))
 
 
@@ -885,16 +743,15 @@ before packages are loaded."
   ;; Python
   ;; =================
 
+  (add-hook 'python-mode-hook #'lsp)
+
+
+
 
 
   ;; ===============
   ;; Other
   ;; ===============
-
-  (obsidian-specify-path "~/Documents/Obsidian Vault/")
-  (global-obsidian-mode t)
-  (org-ai-install-yasnippets) ;; if you are using yasnippet and want `ai` snippets
-  (global-activity-watch-mode)
 
 
 
@@ -916,9 +773,10 @@ This function is called at the very end of Spacemacs initialization."
  '(org-agenda-files
    '("/home/velocitatem/org/daily/2023-01-28.org" "/home/velocitatem/org/daily/today.org"))
  '(package-selected-packages
-   '(telephone-line csv eterm-256color nushell-mode leetcode fireplace astro-ts-mode http irony ob-ipython elgrep obsidian yaml-mode activity-watch-mode org-ai svg-tag-mode svg-lib nano-theme stripes ace-pinyin chinese-conv find-by-pinyin-dired pinyinlib pangu-spacing pyim xr pyim-basedict eldoc-box eldoc-toml company-go counsel-gtags counsel swiper ivy flycheck-golangci-lint ggtags go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor helm-gtags xah-fly-keys org-roam emacsql compat doom-modeline shrink-path pdf-view-restore tablist pdf-tools pdfgrep org-inline-pdf add-node-modules-path import-js grizzl typescript-mode arduino-mode ssh ## edit-indirect ssass-mode vue-html-mode mmm-mode vue-mode rjsx-mode xref-js2 zonokai-emacs zenburn-theme zen-and-art-theme yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toxi-theme toml-mode toc-org terminal-here term-cursor tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit systemd symon symbol-overlay sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons spacegray-theme space-doc soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode slack shell-pop seti-theme scss-mode sass-mode rust-mode ron-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme quickrun pytest pylookup pyenv-mode pydoc py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin poetry planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme pcre2el password-generator paradox overseer orgit-forge organic-green-theme org-wild-notifier org-superstar org-super-agenda org-roam-ui org-rich-yank org-re-reveal org-projectile org-present org-pomodoro org-mime org-drill org-download org-contrib org-cliplink open-junk-file omtose-phellack-theme olivetti oldlace-theme occidental-theme obsidian-theme npm-mode nose nodejs-repl noctilux-theme naquadah-theme nameless mustang-theme multi-vterm multi-term multi-line monokai-theme monochrome-theme molokai-theme moe-theme modus-themes minimap minimal-theme material-theme majapahit-theme madhat2r-theme macrostep lush-theme lsp-ui lsp-python-ms lsp-pyright lsp-origami lorem-ipsum livid-mode live-py-mode link-hint light-soap-theme kaolin-themes jupyter json-reformat json-navigator json-mode js2-refactor js-doc journalctl-mode jbeans-theme jazz-theme ir-black-theme interaction-log inspector inkpot-theme info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe gandalf-theme fuzzy font-lock+ flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-package flycheck-ledger flycheck-elsa flx-ido flatui-theme flatland-theme farmhouse-themes fancy-battery eziam-themes eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-ledger evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu ess-R-data-view espresso-theme eslint-rc eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav elisp-def ein dumb-jump drag-stuff dracula-theme dotenv-mode doom-themes django-theme dired-quick-sort diminish devdocs define-word darktooth-theme darkokai-theme darkmine-theme dap-mode dakrone-theme cython-mode cyberpunk-theme csv-mode copilot company-web company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized code-cells clues-theme clean-aindent-mode chocolate-theme cherry-blossom-theme centered-cursor-mode cargo busybee-theme bubbleberry-theme browse-at-remote blacken birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-link ace-jump-helm-line ac-ispell))
+   '(graphviz-dot-mode gptel telephone-line csv eterm-256color nushell-mode leetcode fireplace astro-ts-mode http irony elgrep obsidian yaml-mode activity-watch-mode org-ai svg-tag-mode svg-lib nano-theme stripes ace-pinyin chinese-conv find-by-pinyin-dired pinyinlib pangu-spacing pyim xr pyim-basedict eldoc-box eldoc-toml company-go counsel-gtags counsel swiper ivy flycheck-golangci-lint ggtags go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor helm-gtags xah-fly-keys org-roam emacsql compat doom-modeline shrink-path pdf-view-restore tablist pdf-tools pdfgrep org-inline-pdf add-node-modules-path import-js grizzl typescript-mode arduino-mode ssh ## edit-indirect ssass-mode vue-html-mode mmm-mode vue-mode rjsx-mode xref-js2 zonokai-emacs zenburn-theme zen-and-art-theme yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toxi-theme toml-mode toc-org terminal-here term-cursor tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit systemd symon symbol-overlay sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons spacegray-theme space-doc soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode slack shell-pop seti-theme scss-mode sass-mode rust-mode ron-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme quickrun pytest pylookup pyenv-mode pydoc py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin poetry planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme pcre2el password-generator paradox overseer orgit-forge organic-green-theme org-wild-notifier org-superstar org-super-agenda org-roam-ui org-rich-yank org-re-reveal org-projectile org-present org-pomodoro org-mime org-drill org-download org-contrib org-cliplink open-junk-file omtose-phellack-theme olivetti oldlace-theme occidental-theme obsidian-theme npm-mode nose nodejs-repl noctilux-theme naquadah-theme nameless mustang-theme multi-vterm multi-term multi-line monokai-theme monochrome-theme molokai-theme moe-theme modus-themes minimap minimal-theme material-theme majapahit-theme madhat2r-theme macrostep lush-theme lsp-ui lsp-python-ms lsp-pyright lsp-origami lorem-ipsum livid-mode live-py-mode link-hint light-soap-theme kaolin-themes jupyter json-reformat json-navigator json-mode js2-refactor js-doc journalctl-mode jbeans-theme jazz-theme ir-black-theme interaction-log inspector inkpot-theme info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe gandalf-theme fuzzy font-lock+ flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-package flycheck-ledger flycheck-elsa flx-ido flatui-theme flatland-theme farmhouse-themes fancy-battery eziam-themes eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-ledger evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu ess-R-data-view espresso-theme eslint-rc eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav elisp-def ein dumb-jump drag-stuff dracula-theme dotenv-mode doom-themes django-theme dired-quick-sort diminish devdocs define-word darktooth-theme darkokai-theme darkmine-theme dap-mode dakrone-theme cython-mode cyberpunk-theme csv-mode copilot company-web company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized code-cells clues-theme clean-aindent-mode chocolate-theme cherry-blossom-theme centered-cursor-mode cargo busybee-theme bubbleberry-theme browse-at-remote blacken birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-link ace-jump-helm-line ac-ispell))
  '(paradox-github-token t)
- '(pyim-dicts nil))
+ '(pyim-dicts nil)
+ '(tramp-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
