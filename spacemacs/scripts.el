@@ -27,6 +27,7 @@
 
   )
 
+
 (defun publish-website ()
   (interactive)
   (shell-command "cd /home/velocitatem/Documents/Me/personal-website/ && bash copy-notes.sh")
@@ -71,3 +72,34 @@
 (add-hook 'c-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c C-c") 'compile-and-run)))
+
+
+
+;; Jupyter notebok functionality ein
+;; when I open any ipynb file if there is no server running in the directory already, start it up
+;; also turn on undo tree mode and copilot mode
+(add-hook 'ein:notebook-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-<return>") 'ein:worksheet-execute-cell-and-goto-next-km)
+            (local-set-key (kbd "S-<return>") 'ein:worksheet-insert-cell-below-km)
+            (local-set-key (kbd "C-S-<return>") 'ein:worksheet-insert-cell-above-km)
+            # remap SPC-f-s to save the notebook
+              ;; turn on undo tree mode
+              (undo-tree-mode)
+              ;; turn on copilot mode
+              (open-copilot)
+              ;; turn on flyspell mode
+              (flyspell-mode)
+              )
+
+          )
+
+
+(defun vterm-nushell ()
+  "Open a new vterm buffer running Nushell."
+  (interactive)
+  (let ((vterm-buffer-name "*nushell*")
+        (nushell-path "/home/velocitatem/.cargo/bin/nu"))
+    (vterm)
+    (vterm-send-string nushell-path)
+    (vterm-send-return)))

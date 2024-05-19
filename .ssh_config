@@ -1,0 +1,19 @@
+Host rlab
+     HostName 100.90.38.22
+     User dion
+
+Host rlabp
+    HostName 100.90.38.22
+    User velocitatem
+    Port 22
+    DynamicForward 9090
+    ExitOnForwardFailure yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    ControlMaster auto
+    ControlPath ~/.ssh/%r@%h:%p
+    ControlPersist 4h
+    RequestTTY no
+    BatchMode yes
+    LocalCommand echo "SOCKS proxy is open on port 9090"
+    PermitLocalCommand yes

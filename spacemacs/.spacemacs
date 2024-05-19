@@ -679,8 +679,8 @@ before packages are loaded."
   ;; (load "/home/velocitatem/Downloads/software/ox-ipynb/ox-ipynb.el")
   ;; (load "/home/velocitatem/Downloads/software/org-modern-indent/org-modern-indent.el")
   ;; (load "/mnt/s/Downloads/software/gptel/gptel.el")
-  (load "/home/velocitatem/.config/spacemacs/scripts.el") ;; Load scripts
   ;; (load "/home/velocitatem/.config/spacemacs/grapmode.el")
+  (load "/home/velocitatem/.config/spacemacs/scripts.el") ;; Load scripts
 
 
 
