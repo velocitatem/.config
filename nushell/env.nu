@@ -104,11 +104,11 @@ alias labd2 = xrandr --output DP1-3 --right-of DP1-1 --auto
 alias ollamaui = docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 alias ollamaui-stop = docker stop (docker ps -q --filter ancestor=ghcr.io/open-webui/open-webui:main )
 alias bayes = bash /mnt/s/scripts/bayes.sh
-alias firebot = docker run -d --name=firefox -p 5800:5800 jlesage/firefox
 alias lab = bash /mnt/s/scripts/lab.sh
 
-# ownerproof-3209348-1699973265-5c96ddbca989
 
+# ownerproof-3209348-1699973265-5c96ddbca989
+$env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/ssh-agent.socket"
 
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu

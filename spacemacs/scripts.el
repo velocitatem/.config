@@ -83,7 +83,6 @@
             (local-set-key (kbd "C-<return>") 'ein:worksheet-execute-cell-and-goto-next-km)
             (local-set-key (kbd "S-<return>") 'ein:worksheet-insert-cell-below-km)
             (local-set-key (kbd "C-S-<return>") 'ein:worksheet-insert-cell-above-km)
-            # remap SPC-f-s to save the notebook
               ;; turn on undo tree mode
               (undo-tree-mode)
               ;; turn on copilot mode
