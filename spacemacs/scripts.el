@@ -102,3 +102,50 @@
     (vterm)
     (vterm-send-string nushell-path)
     (vterm-send-return)))
+
+
+;; gotta start ssh agent and add the key to it
+;;  $env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/ssh-agent.socket"
+(defun start-ssh-agent ()
+  (interactive)
+  (setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/ssh-agent.socket"))
+  ;; get password
+  (shell-command "ssh-add -l || ssh-add")
+  (message "SSH Agent started")
+
+  )
+
+
+
+(start-ssh-agent)
+
+
+(setq mu4e-maildir "~/Maildir/gmail"
+      mu4e-get-mail-command "mbsync -a"
+      mu4e-update-interval 300
+      mu4e-compose-signature-auto-include nil
+      mu4e-view-show-images t
+      mu4e-view-show-addresses t
+      mu4e-compose-format-flowed t
+      mu4e-drafts-folder "/[Gmail].Drafts"
+      mu4e-sent-folder   "/[Gmail].Sent Mail"
+      mu4e-refile-folder "/[Gmail].All Mail"
+      mu4e-trash-folder  "/[Gmail].Trash")
+
+(setq mu4e-maildir-shortcuts
+      '( ("/Inbox"             . ?i)
+         ("/[Gmail].Sent Mail" . ?s)
+         ("/[Gmail].Trash"     . ?t)
+         ("/[Gmail].Drafts"    . ?d)
+         ("/[Gmail].All Mail"  . ?a)))
+
+
+(require 'smtpmail)
+
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials (expand-file-name "~/.authinfo")
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      smtpmail-debug-info t)

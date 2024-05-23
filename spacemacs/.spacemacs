@@ -96,6 +96,7 @@ This function should only modify configuration layer settings."
      ess
      version-control
      treemacs
+     mu4e
      pdf
      c-c++
      )

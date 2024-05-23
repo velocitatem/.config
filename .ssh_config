@@ -28,3 +28,9 @@ Host rhydra
      User velocitatem
      Port 22
      ProxyJump rcolossus
+
+
+Host atreus
+     HostName 10.205.3.189
+     User velocitatem
+     ProxyJump rcolossus
