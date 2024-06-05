@@ -6,6 +6,8 @@
 alt + Return
 	xfce4-terminal
 
+
+
 # program launcher
 alt + o
    rofi -show drun
@@ -178,3 +180,9 @@ Shift + Print
 
 alt + l
     xsecurelock
+
+alt + u
+    bash /mnt/s/scripts/todo.sh &
+
+alt + t
+    bash /mnt/s/scripts/fabric.sh &

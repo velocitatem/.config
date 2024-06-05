@@ -2,12 +2,14 @@ Host rcolossus
      HostName 100.90.38.22
      User velocitatem
      IdentityFile ~/.ssh/id_rsa
+     AddKeysToAgent yes
 
 
 Host colossus
      HostName colossus
      User velocitatem
      IdentityFile ~/.ssh/id_rsa
+     AddKeysToAgent yes
 
 
 Host rlabp
@@ -21,6 +23,7 @@ Host rlabp
     ControlMaster auto
     ControlPath ~/.ssh/%r@%h:%p
     ControlPersist 4h
+    AddKeysToAgent yes
 
 
 Host rhydra
@@ -28,9 +31,19 @@ Host rhydra
      User velocitatem
      Port 22
      ProxyJump rcolossus
+     AddKeysToAgent yes
 
 
 Host atreus
      HostName 10.205.3.189
      User velocitatem
      ProxyJump rcolossus
+     AddKeysToAgent yes
+
+Host zeus
+  User lab
+  Port 22
+  KexAlgorithms +diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+  Ciphers +aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  HostkeyAlgorithms +ssh-rsa
