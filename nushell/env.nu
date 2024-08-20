@@ -93,6 +93,8 @@ $env.PATH = ($env.PATH | prepend '/home/velocitatem/.cargo/bin')
 $env.PATH = ($env.PATH | prepend '/home/velocitatem/.bun/bin')
 $env.PATH = ($env.PATH | prepend '/usr/bin/clion')
 $env.PATH = ($env.PATH | prepend '/home/velocitatem/.dotnet/')
+$env.HOME_PATH = /mnt/s/Documents/Projects/system_2/
+$env.WORKON_HOME = /mnt/s/ENVS/
 
 load-env (open $env.KEYS_PATH)
 alias docat = /usr/bin/cat
